@@ -1,0 +1,7 @@
+sentence1,sentence2,label
+"The cat sat on the mat.","The dog lay on the rug.",0
+"The sky is blue.","The ocean is deep blue.",1
+"The quick brown fox jumps over the lazy dog.","A fast, dark fox leaps over a sleeping canine.",1
+"She sells seashells by the seashore.","He buys rocks by the riverbank.",0
+"A journey of a thousand miles begins with a single step.","Every great achievement starts with a small action.",1
+"To be or not to be, that is the question.","Existential dilemmas often start with a simple choice.",1

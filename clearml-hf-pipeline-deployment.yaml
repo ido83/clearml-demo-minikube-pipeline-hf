@@ -1,0 +1,48 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: clearml-hf-pipeline-deployment
+  namespace: clearml
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: clearml-hf-pipeline
+  template:
+    metadata:
+      labels:
+        app: clearml-hf-pipeline
+    spec:
+      containers:
+      - name: clearml-hf-pipeline
+        image: idona/clearml-hf-pipeline:latest
+        imagePullPolicy: Always
+        env:
+        - name: CLEARML_API_HOST
+          value: "http://192.168.49.2:30008"
+        - name: CLEARML_WEB_HOST
+          value: "http://192.168.49.2:30001"
+        - name: CLEARML_FILES_HOST
+          value: "http://192.168.49.2:30081"
+        - name: CLEARML_API_ACCESS_KEY
+          valueFrom:
+            secretKeyRef:
+              name: clearml-api-access-key
+              key: clearml-api-access-key
+        - name: CLEARML_API_SECRET_KEY
+          valueFrom:
+            secretKeyRef:
+              name: clearml-api-secret-key
+              key: clearml-api-secret-key
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: clearml-hf-pipeline-service
+spec:
+  selector:
+    app: clearml-hf-pipeline
+  ports:
+    - protocol: TCP
+      port: 80
+      targetPort: 8080
