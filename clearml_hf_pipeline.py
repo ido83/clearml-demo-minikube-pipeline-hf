@@ -5,7 +5,7 @@ import pandas as pd
 
 @PipelineDecorator.component(return_values=["model_path"])
 def train_model():
-    task = Task.init(project_name="HuggingFace Pipeline", task_name="Train Model")
+    task = Task.init(project_name="HuggingFace Pipeline", task_name="Train Model", output_uri="s3://my-bucket/models")
     
     # Load custom dataset
     dataset = pd.read_csv('custom_dataset.csv')
@@ -67,4 +67,4 @@ if __name__ == "__main__":
     # Enqueue the pipeline
     task = Task.get_task(task_id=pipeline.id)
     task.set_base_task_type(TaskTypes.pipeline)
-    task.execute_remotely(queue_name="services")
+    task.execute_remotely(queue_name="default")
